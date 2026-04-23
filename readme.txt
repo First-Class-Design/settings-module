@@ -3,7 +3,7 @@ Contributors: fcd, mattwatson
 Tags: settings, admin, modules, excerpt, limits, editor styles, admin color
 Requires at least: 5.8
 Tested up to: 6.5
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -53,6 +53,12 @@ Simply upload a properly formatted PHP class file into the /wp-content/plugins/s
 Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Misc Settings module will automatically read the plugin header (Name and Description) and generate a toggle switch for it on the frontend. The code within the micro-module will only execute if the toggle is enabled in the settings.
 
 == Changelog ==
+
+= 1.1.6 =
+
+Reverted 1.1.5 change.
+
+Added GitHub PAT for increased rate limits.
 
 = 1.1.5 =
 

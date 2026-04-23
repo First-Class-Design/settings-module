@@ -51,6 +51,11 @@ Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Mi
 
 ## **Changelog**
 
+### **1.1.6**
+
+* Reverted 1.1.5 change.
+* Added GitHub PAT for increased rate limits.
+
 ### **1.1.5**
 
 * Changed `\YahnisElsts\PluginUpdateChecker\v5\PucFactory` to `\YahnisElsts\PluginUpdateChecker\v5p6\PucFactory`
