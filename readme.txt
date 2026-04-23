@@ -1,6 +1,3 @@
-# Settings Modules ⚙️
-A custom WordPress plugin containing additional settings and integrations (Colours, Editor CSS, excerpt length +more)
-
 === [FCD] Settings Modules ⚙️ ===
 Contributors: fcd, mattwatson
 Tags: settings, admin, modules, excerpt, limits, editor styles, admin color
