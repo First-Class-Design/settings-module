@@ -3,7 +3,7 @@
  * Plugin Name: [FCD] Settings Modules ⚙️ 
  * Description: A core framework to load additional settings modules into a single admin page. Supports GitHub updates.
  * Plugin URI: https://fcd.org.uk/
- * Version: 1.1.6
+ * Version: 1.1.7
  * Author: Gemini & Matt Watson
  * Author URI: https://fcd.org.uk/
  * Text Domain: fcd-settings-modules
@@ -49,7 +49,7 @@ class Settings_Modules_Core {
 			$myUpdateChecker->setBranch('main');
 
 			// Add your Personal Access Token to bypass the 403 / 429 API rate limits
-			$myUpdateChecker->setAuthentication('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'); // expirs April 23, 2027
+			$myUpdateChecker->setAuthentication('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'); // expirs April 23, 2027
 		}
 	}
 

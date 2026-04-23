@@ -53,6 +53,10 @@ Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Mi
 
 ### **1.1.6**
 
+* Replaces GitHub PAT.
+
+### **1.1.6**
+
 * Reverted 1.1.5 change.
 * Added GitHub PAT for increased rate limits.
 
