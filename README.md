@@ -53,6 +53,10 @@ Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Mi
 
 ## **Changelog**
 
+### **1.1.3**
+
+* Repo migration.  
+
 ### **1.1.2**
 
 * Fixed readme.txt content and versions.  
