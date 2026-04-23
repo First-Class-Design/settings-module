@@ -51,7 +51,11 @@ Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Mi
 
 ## **Changelog**
 
-### **1.1.6**
+### **1.1.8**
+
+* Removal of GH PAT.
+
+### **1.1.7**
 
 * Replaces GitHub PAT.
 
