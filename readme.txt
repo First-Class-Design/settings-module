@@ -3,7 +3,7 @@ Contributors: fcd, mattwatson
 Tags: settings, admin, modules, excerpt, limits, editor styles, admin color
 Requires at least: 5.8
 Tested up to: 6.5
-Stable tag: 1.1.2
+Stable tag: 1.1.4
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
