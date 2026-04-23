@@ -8,8 +8,6 @@
 
 **Tested up to:** 6.5
 
-**Stable tag:** 1.1.2
-
 **Requires PHP:** 7.4
 
 **License:** GPLv2 or later
@@ -52,6 +50,14 @@ Simply upload a properly formatted PHP class file into the /wp-content/plugins/s
 Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Misc Settings module will automatically read the plugin header (Name and Description) and generate a toggle switch for it on the frontend. The code within the micro-module will only execute if the toggle is enabled in the settings.
 
 ## **Changelog**
+
+### **1.1.5**
+
+* Changed `\YahnisElsts\PluginUpdateChecker\v5\PucFactory` to `\YahnisElsts\PluginUpdateChecker\v5p6\PucFactory`
+
+### **1.1.4**
+
+* Stable tag bump. 
 
 ### **1.1.3**
 
