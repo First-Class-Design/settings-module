@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: [FCD] Settings Modules ⚙️ 
- * Description: A core framework to load additional settings modules into a single admin page. Supports GitHub updates.
+ * Description: A core framework to load additional settings modules into a single admin page.
  * Plugin URI: https://fcd.org.uk/
- * Version: 1.1.8
+ * Version: 1.1.10
  * Author: Gemini & Matt Watson
  * Author URI: https://fcd.org.uk/
  * Text Domain: fcd-settings-modules
@@ -38,15 +38,21 @@ class Settings_Modules_Core {
 		// Only run if the library is installed
 		if ( file_exists( $puc_path ) ) {
 			require_once $puc_path;
+
+			// --- SELF-HOSTED JSON CONFIGURATION ---
+			// ⚠️ The URL to the info.json file hosted securely on your server
+			$json_metadata_url = 'https://plugins.fcd.org.uk/settings-modules/info.json'; 
+			// --------------------------------------
 			
 			$myUpdateChecker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
-				'https://github.com/First-Class-Design/settings-module', // ⚠️ REPLACE THIS WITH YOUR GITHUB URL
+				$json_metadata_url,
 				SM_PLUGIN_PATH . 'fcd-settings-modules.php', 
 				'fcd-settings-modules'
 			);
 
-			// Set the branch that contains the stable release.
-			$myUpdateChecker->setBranch('main');
+			// (Optional) If you want to force WP to check the JSON file more frequently during testing, 
+			// you can uncomment the line below (checks every 1 hour instead of 12).
+			// $myUpdateChecker->setUpdateCheckPeriod(1);
 		}
 	}
 

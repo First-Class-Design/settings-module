@@ -51,6 +51,20 @@ Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Mi
 
 ## **Changelog**
 
+### **1.1.10**
+
+* Bumped minimum WordPress version to 6.4.
+* Bumped tested WordPress version to 6.9.4.
+* Expanded info.json and removed readme.txt.
+* Added icon and banner to info.json.
+
+
+### **1.1.9**
+
+* Added <meta> theme support to misc-modules.
+* Added self-hosted updater via info.json.
+
+
 ### **1.1.8**
 
 * Removal of GH PAT.
