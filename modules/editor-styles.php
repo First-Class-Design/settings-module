@@ -6,9 +6,9 @@
 
 class Module_Editor_Styles {
 
-	private $module_version = '1.0.0';
+	private $module_version = '1.0.2';
 	private $option_name    = 'ces_custom_css';
-	private $page_slug      = 'custom-settings-editor-styles'; // Unique slug
+	private $page_slug      = 'custom-settings-editor-styles';
 	private $tab_id         = 'editor_styles';
 
 	public function init() {
@@ -74,7 +74,7 @@ class Module_Editor_Styles {
 		</form>
 
 		<hr style="margin-top: 30px; border-color: #f0f0f1;">
-		<p class="description" style="text-align: right; opacity: 0.6;">
+		<p class="description" style="text-align: right; font-size: 10px; opacity: 0.6;">
 			Module Version: <?php echo esc_html( $this->module_version ); ?>
 		</p>
 		<?php
@@ -83,8 +83,18 @@ class Module_Editor_Styles {
 	// --- Callbacks ---
 
 	public function section_info() {
-		echo '<p>Enter the CSS below that you want to apply specifically to the Gutenberg block editor.</p>';
-		echo '<p><em>Tip: To match your frontend h1, simply type <code>h1 { font-family: "MyFont", sans-serif; }</code></em></p>';
+		echo '<div class="notice notice-warning inline" style="margin-top: 15px; margin-bottom: 20px; padding: 10px;">';
+		echo '<p><strong>⚠️ Deprecation Warning (WordPress 7.0+):</strong> Due to changes in the Gutenberg iframe architecture, injecting CSS directly via the admin header can cause visual issues in the dashboard. This module will eventually be deprecated.</p>';
+		echo '<p><strong>Recommended Native Method:</strong> Please add your styles directly to your theme\'s <code>functions.php</code> instead:</p>';
+		echo '<pre style="background: #ffffff; padding: 10px; border-left: 4px solid #dba617; overflow-x: auto;"><code>function fcd_native_editor_styles() {
+    add_theme_support( \'editor-styles\' );
+    add_editor_style( \'assets/css/editor-style.css\' ); // Path relative to your theme folder
+}
+add_action( \'after_setup_theme\', \'fcd_native_editor_styles\' );</code></pre>';
+		echo '</div>';
+
+		echo '<p>If you still need to use this tool temporarily, enter the CSS below.</p>';
+		echo '<p><em>Tip: For WP 7.0+ compatibility, ensure you prefix your styles with <code>.editor-styles-wrapper</code> (e.g., <code>.editor-styles-wrapper h1 { font-family: "MyFont"; }</code>).</em></p>';
 	}
 
 	public function field_callback() {

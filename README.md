@@ -4,11 +4,11 @@
 
 **Tags:** settings, admin, modules, excerpt, limits, editor styles, admin color
 
-**Requires at least:** 5.8
+**Requires at least:** 6.4
 
-**Tested up to:** 6.5
+**Tested up to:** 7.0.0
 
-**Requires PHP:** 7.4
+**Requires PHP:** 8.0
 
 **License:** GPLv2 or later
 
@@ -50,6 +50,13 @@ Simply upload a properly formatted PHP class file into the /wp-content/plugins/s
 Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Misc Settings module will automatically read the plugin header (Name and Description) and generate a toggle switch for it on the frontend. The code within the micro-module will only execute if the toggle is enabled in the settings.
 
 ## **Changelog**
+
+### **1.1.11**
+
+* Bumped tested WordPress version to 7.0.0.
+* Revised helper text for editor styles to include `.editor-styles-wrapper` class.
+* Added instructions to natively embed editor styles inside a WordPress theme.
+
 
 ### **1.1.10**
 

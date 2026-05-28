@@ -3,7 +3,7 @@
  * Plugin Name: [FCD] Settings Modules ⚙️ 
  * Description: A core framework to load additional settings modules into a single admin page.
  * Plugin URI: https://fcd.org.uk/
- * Version: 1.1.10
+ * Version: 1.1.11
  * Author: Gemini & Matt Watson
  * Author URI: https://fcd.org.uk/
  * Text Domain: fcd-settings-modules
