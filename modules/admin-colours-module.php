@@ -6,7 +6,7 @@
 
 class Module_Admin_Colors {
 
-	private $module_version = '1.0.4'; // Updated version
+	private $module_version = '1.0.6'; // Updated for WP 7.0+ compatibility
 	private $option_group   = 'sm_admin_colors_group';
 	private $page_slug      = 'custom-settings-colors'; 
 	private $tab_id         = 'admin_colors';
@@ -98,7 +98,7 @@ class Module_Admin_Colors {
 		</form>
 
 		<hr style="margin-top: 30px; border-color: #f0f0f1;">
-		<p class="description" style="text-align: right; opacity: 0.6;">
+		<p class="description" style="text-align: right; font-size: 10px; opacity: 0.6;">
 			Module Version: <?php echo esc_html( $this->module_version ); ?>
 		</p>
 		<?php
@@ -107,7 +107,7 @@ class Module_Admin_Colors {
 	// --- Callbacks ---
 
 	public function section_info() {
-		echo '<p>These settings will override the colours for any user who has the <strong>Default</strong> admin colour scheme selected.</p>';
+		echo '<p>These settings will override the colours for any user who has the <strong>Default (Modern or Fresh)</strong> admin colour scheme selected.</p>';
 	}
 
 	public function color_field_callback( $args ) {
@@ -123,7 +123,7 @@ class Module_Admin_Colors {
 	// --- Core Functionality ---
 
 	/**
-	 * Output CSS to override variables if the user is on the 'fresh' (Default) scheme.
+	 * Output CSS to override variables if the user is on the 'fresh' or 'modern' (Default) scheme.
 	 */
 	public function output_admin_css() {
 		// 1. Check if user is logged in
@@ -132,9 +132,9 @@ class Module_Admin_Colors {
 		// 2. Check user's preferred color scheme
 		$user_scheme = get_user_option( 'admin_color' );
 
-		// 'fresh' is the internal ID for the Default scheme. 
+		// 'modern' is WP 7.0+ default, 'fresh' is older WP default. 
 		// Empty check covers cases where it hasn't been set yet.
-		if ( 'fresh' === $user_scheme || empty( $user_scheme ) ) {
+		if ( 'modern' === $user_scheme || 'fresh' === $user_scheme || empty( $user_scheme ) ) {
 			
 			$primary_color = get_option( 'sm_ac_primary_color', '#2271b1' );
 			$menu_bg       = get_option( 'sm_ac_menu_bg', '#1d2327' );

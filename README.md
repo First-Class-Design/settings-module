@@ -48,6 +48,10 @@ Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Mi
 
 ## **Changelog**
 
+### **1.1.112**
+
+* Added a check for WordPress 7.0 new 'modern' default theme (previously 'fresh').
+
 ### **1.1.11**
 
 * Bumped tested WordPress version to 7.0.0.
