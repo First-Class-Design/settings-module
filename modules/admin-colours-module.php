@@ -6,7 +6,7 @@
 
 class Module_Admin_Colors {
 
-	private $module_version = '1.0.6'; // Updated for WP 7.0+ compatibility
+	private $module_version = '1.0.7'; // Updated to add enable/disable toggle
 	private $option_group   = 'sm_admin_colors_group';
 	private $page_slug      = 'custom-settings-colors'; 
 	private $tab_id         = 'admin_colors';
@@ -37,6 +37,7 @@ class Module_Admin_Colors {
 	 * Register the settings fields.
 	 */
 	public function register_settings() {
+		register_setting( $this->option_group, 'sm_ac_enable_override', 'rest_sanitize_boolean' );
 		register_setting( $this->option_group, 'sm_ac_primary_color', 'sanitize_hex_color' );
 		register_setting( $this->option_group, 'sm_ac_menu_bg', 'sanitize_hex_color' );
 		register_setting( $this->option_group, 'sm_ac_menu_text', 'sanitize_hex_color' );
@@ -47,6 +48,15 @@ class Module_Admin_Colors {
 			'Default Scheme Overrides',
 			array( $this, 'section_info' ),
 			$this->page_slug
+		);
+
+		add_settings_field(
+			'sm_ac_enable_override',
+			'Enable Custom Colours',
+			array( $this, 'checkbox_field_callback' ),
+			$this->page_slug,
+			'sm_ac_main_section',
+			array( 'id' => 'sm_ac_enable_override', 'description' => 'Check to apply the colours below to the default admin scheme.' )
 		);
 
 		add_settings_field(
@@ -120,6 +130,18 @@ class Module_Admin_Colors {
 		<?php
 	}
 
+	public function checkbox_field_callback( $args ) {
+		$id          = $args['id'];
+		$description = $args['description'];
+		$value       = get_option( $id, false );
+		?>
+		<label>
+			<input type="checkbox" name="<?php echo esc_attr( $id ); ?>" value="1" <?php checked( 1, $value ); ?> />
+			<?php echo esc_html( $description ); ?>
+		</label>
+		<?php
+	}
+
 	// --- Core Functionality ---
 
 	/**
@@ -129,7 +151,10 @@ class Module_Admin_Colors {
 		// 1. Check if user is logged in
 		if ( ! is_user_logged_in() ) return;
 
-		// 2. Check user's preferred color scheme
+		// 2. Check if the custom colour override is enabled
+		if ( ! get_option( 'sm_ac_enable_override', false ) ) return;
+
+		// 3. Check user's preferred color scheme
 		$user_scheme = get_user_option( 'admin_color' );
 
 		// 'modern' is WP 7.0+ default, 'fresh' is older WP default. 

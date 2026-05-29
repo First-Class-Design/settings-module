@@ -2,12 +2,12 @@
 
 # **\[FCD\] Settings Modules ⚙️**
 
-**Contributors:** fcd, mattwatson
-**Tags:** settings, admin, modules, excerpt, limits, editor styles, admin color
-**Requires at least:** 6.4
-**Tested up to:** 7.0.0
-**Requires PHP:** 8.0
-**License:** GPLv2 or later
+* **Contributors:** fcd, mattwatson
+* **Tags:** settings, admin, modules, excerpt, limits, editor styles, admin color
+* **Requires at least:** 6.4
+* **Tested up to:** 7.0.0
+* **Requires PHP:** 8.0
+* **License:** GPLv2 or later
 
 A core framework to load additional settings modules into a single admin page. Handcrafted by First Class Design Ltd using Gemini AI.
 
@@ -17,7 +17,7 @@ A core framework to load additional settings modules into a single admin page. H
 
 ### **Included Modules:**
 
-* **Excerpt Settings:** Control the global excerpt length and custom suffix (e.g., ... or \[Read More\]) per post type.  
+* **Excerpt Settings:** Control the global excerpt length and custom suffix (e.g., ... or \[Read More\]) per post type. 
 * **Archive Limits:** Define a custom number of posts to display per page on specific post-type archives, overriding the default WordPress reading settings.  
 * **Editor Styles:** Inject custom CSS directly into the Gutenberg Block Editor to perfectly match your frontend typography and layout.  
 * **Admin Colours:** Override the default WordPress "Fresh" admin color scheme with your own brand's primary color, menu background, hover states, and text colors.  
@@ -47,6 +47,10 @@ Simply upload a properly formatted PHP class file into the /wp-content/plugins/s
 Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Misc Settings module will automatically read the plugin header (Name and Description) and generate a toggle switch for it on the frontend. The code within the micro-module will only execute if the toggle is enabled in the settings.
 
 ## **Changelog**
+
+### **1.1.13**
+
+* Added enable/disable toggle for the admin colour module.
 
 ### **1.1.12**
 
