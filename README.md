@@ -1,15 +1,12 @@
+![Settings Module - GitHub Banner](assets/WordPress_Setings_module-banner.png)
+
 # **\[FCD\] Settings Modules ⚙️**
 
 **Contributors:** fcd, mattwatson
-
 **Tags:** settings, admin, modules, excerpt, limits, editor styles, admin color
-
 **Requires at least:** 6.4
-
 **Tested up to:** 7.0.0
-
 **Requires PHP:** 8.0
-
 **License:** GPLv2 or later
 
 A core framework to load additional settings modules into a single admin page. Handcrafted by First Class Design Ltd using Gemini AI.
