@@ -21,7 +21,7 @@ A core framework to load additional settings modules into a single admin page. H
 * **Archive Limits:** Define a custom number of posts to display per page on specific post-type archives, overriding the default WordPress reading settings.  
 * **Editor Styles:** Inject custom CSS directly into the Gutenberg Block Editor to perfectly match your frontend typography and layout.  
 * **Admin Colours:** Override the default WordPress "Fresh" admin color scheme with your own brand's primary color, menu background, hover states, and text colors.  
-* **Misc Settings (Micro-Modules):** A dedicated tab for toggleable site scripts and features. Includes toggles for:  
+* **Misc Settings (Micro-Modules):** A dedicated tab for taggable site scripts and features. Includes toggles for:  
   * **Winter Snow Overlay ❄️:** A CSS-only snow animation overlay for the frontend.  
   * **Basic Google Analytics:** Easily inject a GA4 Measurement ID into your site's \<head\>.
 
@@ -31,16 +31,16 @@ Includes the Plugin Update Checker library, allowing seamless, automated over-th
 
 ## **Installation**
 
-1. Upload the settings-modules folder to the /wp-content/plugins/ directory of your WordPress installation.  
+1. Upload the fcd-settings-modules folder to the /wp-content/plugins/ directory of your WordPress installation.  
 2. Activate the plugin through the **Plugins** menu in WordPress.  
-3. Navigate to **Site Settings \> Custom Settings** in the WordPress admin menu.  
+3. Navigate to **Dashboard \> Custom Settings** in the WordPress admin menu.  
 4. Browse the tabs to configure your activated modules.
 
 ## **Frequently Asked Questions**
 
 ### **How do I add a new main module?**
 
-Simply upload a properly formatted PHP class file into the /wp-content/plugins/settings-modules/modules/ directory. The core framework will automatically detect it, run its hooks, and load it as a new tab in the settings interface.
+Simply upload a properly formatted PHP class file into the /wp-content/plugins/fcd-settings-modules/modules/ directory. The core framework will automatically detect it, run its hooks, and load it as a new tab in the settings interface.
 
 ### **How do I add a new toggle to the Misc tab?**
 
