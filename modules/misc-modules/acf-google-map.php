@@ -33,18 +33,20 @@ function fcd_sm_force_google_maps_api_key( $src, $handle ) {
 	// Check if the script URL belongs to the Google Maps API
 	if ( strpos( $src, 'maps.googleapis.com/maps/api/js' ) !== false ) {
 		
-		// Parse the URL to get the query parameters
 		$url_parts = parse_url( $src );
+		$query_params = array();
+
+		// Extract existing query parameters if they exist (like libraries=places)
 		if ( isset( $url_parts['query'] ) ) {
 			parse_str( $url_parts['query'], $query_params );
-
-			// Swap whatever key is there with our approved key
-			$query_params['key'] = 'AIzaSyAciNTajbu3KyLuQQ_ea7uohU3OR_4Sy94';
-
-			// Rebuild the URL string
-			$new_query = http_build_query( $query_params );
-			$src = $url_parts['scheme'] . '://' . $url_parts['host'] . $url_parts['path'] . '?' . $new_query;
 		}
+
+		// Force our approved key into the array, regardless of whether a key previously existed
+		$query_params['key'] = 'AIzaSyAciNTajbu3KyLuQQ_ea7uohU3OR_4Sy94';
+
+		// Rebuild the URL string
+		$new_query = http_build_query( $query_params );
+		$src = $url_parts['scheme'] . '://' . $url_parts['host'] . $url_parts['path'] . '?' . $new_query;
 	}
 	
 	return $src;
