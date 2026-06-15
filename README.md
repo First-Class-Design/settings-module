@@ -48,6 +48,10 @@ Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Mi
 
 ## **Changelog**
 
+### **1.1.14**
+
+* Added Google Cloud API key for legacy Places API with ACF
+
 ### **1.1.13**
 
 * Added enable/disable toggle for the admin colour module.
@@ -64,7 +68,6 @@ Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Mi
 * Revised helper text for editor styles to include `.editor-styles-wrapper` class.
 * Added instructions to natively embed editor styles inside a WordPress theme.
 
-
 ### **1.1.10**
 
 * Bumped minimum WordPress version to 6.4.
@@ -72,12 +75,10 @@ Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Mi
 * Expanded info.json and removed readme.txt.
 * Added icon and banner to info.json.
 
-
 ### **1.1.9**
 
 * Added <meta> theme support to misc-modules.
 * Added self-hosted updater via info.json.
-
 
 ### **1.1.8**
 
