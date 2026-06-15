@@ -48,9 +48,13 @@ Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Mi
 
 ## **Changelog**
 
+### **1.1.15**
+
+* Added a force check to use only the API key within the ACF option.
+
 ### **1.1.14**
 
-* Added Google Cloud API key for legacy Places API with ACF
+* Added Google Cloud API key for legacy Places API with ACF.
 
 ### **1.1.13**
 
