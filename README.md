@@ -48,6 +48,10 @@ Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Mi
 
 ## **Changelog**
 
+### **1.1.16**
+
+* Fixed the ACF Google Map script micro module (issue previously caused by functions.php already having an API key present) so the additional forces were removed.
+
 ### **1.1.15**
 
 * Added a force check to use only the API key within the ACF option.
