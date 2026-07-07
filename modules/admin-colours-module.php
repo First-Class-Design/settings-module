@@ -2,6 +2,7 @@
 /**
  * Module Name: Admin Colour Scheme
  * Description: Customise the default WordPress Admin colour scheme.
+ * Version: 1.0.7
  */
 
 class Module_Admin_Colors {

@@ -2,6 +2,7 @@
 /**
  * Module Name: Custom Editor Styles
  * Description: Add custom CSS to the WordPress Block Editor (Gutenberg) to match your frontend.
+ * Version: 1.0.2
  */
 
 class Module_Editor_Styles {

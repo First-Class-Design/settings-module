@@ -2,6 +2,7 @@
 /**
  * Module Name: Archive Limits
  * Description: Control the number of posts displayed per page for different post type archives.
+ * Version: 1.0.1
  */
 
 class Module_Archive_Limits {

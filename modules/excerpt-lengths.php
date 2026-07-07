@@ -2,6 +2,7 @@
 /**
  * Module Name: Excerpt Settings
  * Description: Hooks into Settings Modules to provide excerpt control (length and suffix).
+ * Version: 1.0.2
  */
 
 class Module_Excerpt_Lengths {

@@ -2,6 +2,7 @@
 /**
  * Module Name: Misc Settings
  * Description: A collection of miscellaneous site features and toggles (e.g., FCD Snow).
+ * Version: 1.0.1
  */
 
 class Module_Misc_Settings {

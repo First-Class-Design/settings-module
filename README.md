@@ -17,10 +17,11 @@ A core framework to load additional settings modules into a single admin page. H
 
 ### **Included Modules:**
 
+* **Site Notice:** A dismissible site-wide notice with configurable positioning, colours, SVG icons, and smart local-storage cookies that auto-reset when content changes.
 * **Excerpt Settings:** Control the global excerpt length and custom suffix (e.g., ... or \[Read More\]) per post type. 
 * **Archive Limits:** Define a custom number of posts to display per page on specific post-type archives, overriding the default WordPress reading settings.  
 * **Editor Styles:** Inject custom CSS directly into the Gutenberg Block Editor to perfectly match your frontend typography and layout.  
-* **Admin Colours:** Override the default WordPress "Fresh" admin color scheme with your own brand's primary color, menu background, hover states, and text colors.  
+* **Admin Colours:** Override the default WordPress "Fresh" admin color scheme with your own brand's primary color, menu background, hover states, and text colours.  
 * **Misc Settings (Micro-Modules):** A dedicated tab for taggable site scripts and features. Includes toggles for:  
   * **Winter Snow Overlay ❄️:** A CSS-only snow animation overlay for the frontend.  
   * **Basic Google Analytics:** Easily inject a GA4 Measurement ID into your site's \<head\>.
@@ -47,6 +48,16 @@ Simply upload a properly formatted PHP class file into the /wp-content/plugins/f
 Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Misc Settings module will automatically read the plugin header (Name and Description) and generate a toggle switch for it on the frontend. The code within the micro-module will only execute if the toggle is enabled in the settings.
 
 ## **Changelog**
+
+### **1.1.17**
+
+* Added a new main module for a site-wide notice. Features include:  
+  * **Flexible Positioning:** 7 distinct layout options (floating corners, center, full-width top/bottom).  
+  * **Customizable Appearance:** Pre-built color themes (Error, Warning, Light, Dark) plus custom hex support.  
+  * **Built-in Icons:** Selectable SVG icons (Info, Warning, Bell, Star).  
+  * **Smart Dismissal Memory:** Remembers closed state via local storage for a customizable number of hours.  
+  * **Auto-Reset on Update:** Automatically detects when the notice content changes and resets the dismissal state for all users.  
+  * **Appearance Delay:** Configurable timer to delay the popup animation after page load.
 
 ### **1.1.16**
 
