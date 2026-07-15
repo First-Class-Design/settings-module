@@ -51,7 +51,7 @@ Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Mi
 
 ### **1.1.18**
 
-* Added a quick settings link next 'Deactivate' link on the plugin list. 
+* Added a quick settings link next to the 'deactivate' link on the plugin list. 
 
 ### **1.1.17**
 
