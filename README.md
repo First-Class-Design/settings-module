@@ -49,6 +49,10 @@ Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Mi
 
 ## **Changelog**
 
+### **1.1.18**
+
+* Added a quick settings link next 'Deactivate' link on the plugin list. 
+
 ### **1.1.17**
 
 * Added a new main module for a site-wide notice. Features include:  

@@ -3,7 +3,7 @@
  * Plugin Name: [FCD] Settings Modules ⚙️ 
  * Description: A core framework to load additional settings modules into a single admin page.
  * Plugin URI: https://fcd.org.uk/
- * Version: 1.1.16
+ * Version: 1.1.18
  * Author: Gemini & Matt Watson
  * Author URI: https://fcd.org.uk/
  * Text Domain: fcd-settings-modules
@@ -238,3 +238,21 @@ class Settings_Modules_Core {
 }
 
 new Settings_Modules_Core();
+
+/**
+ * Add a "Settings" quick-link to the WordPress Plugins page.
+ */
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'fcd_sm_add_plugin_action_links' );
+
+function fcd_sm_add_plugin_action_links( $links ) {
+	// Link directly to the main Custom Settings page.
+	$settings_url  = admin_url( 'admin.php?page=custom-settings' );
+	
+	// Create the HTML link, adding a bit of styling to make it prominent
+	$settings_link = '<a href="' . esc_url( $settings_url ) . '" style="font-weight: 600; color: #2271b1;">Settings</a>';
+	
+	// array_unshift puts our link at the very beginning of the array (before Deactivate)
+	array_unshift( $links, $settings_link );
+	
+	return $links;
+}
