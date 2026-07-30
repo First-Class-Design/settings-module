@@ -143,7 +143,7 @@ Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Mi
 
 ### **1.1.0**
 
-* Integrated Plugin Update Checker for automated GitHub releases.
+* Integrated [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) for automated GitHub releases.
 
 ### **1.0.2**
 
