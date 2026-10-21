@@ -18,6 +18,8 @@ A core framework to load additional settings modules into a single admin page. H
 ### **Included Modules:**
 
 * **Site Notice:** A dismissible site-wide notice with configurable positioning, colours, SVG icons, and smart local-storage cookies that auto-reset when content changes.
+* **Blocks:** A collection of custom made blocks.
+  * **Portfolio Gallery:** Requires ACF Pro - adds a custom block gallery that can be overwritten with a theme template-part. Includes a lightbox.
 * **Excerpt Settings:** Control the global excerpt length and custom suffix (e.g., ... or \[Read More\]) per post type. 
 * **Archive Limits:** Define a custom number of posts to display per page on specific post-type archives, overriding the default WordPress reading settings.  
 * **Editor Styles:** Inject custom CSS directly into the Gutenberg Block Editor to perfectly match your frontend typography and layout.  
@@ -48,6 +50,10 @@ Simply upload a properly formatted PHP class file into the /wp-content/plugins/f
 Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Misc Settings module will automatically read the plugin header (Name and Description) and generate a toggle switch for it on the frontend. The code within the micro-module will only execute if the toggle is enabled in the settings.
 
 ## **Changelog**
+
+### **1.2.0**
+
+* Added a custom 'Blocks' module to support a series of blocks powered by ACF Pro (or without).
 
 ### **1.1.18**
 
