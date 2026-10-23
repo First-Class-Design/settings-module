@@ -3,10 +3,10 @@
     "slug": "settings-modules",
     "version": "1.2.0",
 
-    "homepage": "https://fcd.org.uk/",
+    "homepage": "https://plugins.fcd.org.uk/",
     
     "author": "Gemini & Matt Watson",
-    "author_homepage": "https://fcd.org.uk/",
+    "author_homepage": "https://fcd.org.uk/settings-modules/",
 
     "requires": "6.4",
     "tested": "7.0.0",
