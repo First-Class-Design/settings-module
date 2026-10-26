@@ -5,7 +5,7 @@
 * **Contributors:** fcd, mattwatson
 * **Tags:** settings, admin, modules, excerpt, limits, editor styles, admin color
 * **Requires at least:** 6.4
-* **Tested up to:** 7.0.0
+* **Tested up to:** 7.1.3
 * **Requires PHP:** 8.0
 * **License:** GPLv2 or later
 
