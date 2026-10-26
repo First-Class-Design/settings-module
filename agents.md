@@ -12,5 +12,5 @@ These 2 files should always remain in sync:
 We use the 'plugin-update-checker' code to check our 'plugins.fcd.org.uk/settings-modules' URL for any updates. This relies on info.json so the information is correct.
 
 ### Releasing new versions
-- Package all files excluding 'landing-page' directory and 'info.json' file to a ZIP archive 'fcd-settings-modules-XXX.zip' with XXX referring to the version number.
+- Package all files excluding 'landing-page' and 'assets' directories and 'info.json' file to a ZIP archive 'fcd-settings-modules-XXX.zip' with XXX referring to the version number.
 - Push onto GitHub and draft a release with the change-log in the description and our title / tag matching our version number.
