@@ -2,8 +2,8 @@
 <html lang="en" data-wf-page="636cce7e709c50666a681c59" data-wf-site="636cc277bd6bad1e91095258">
 <head>
   <meta charset="utf-8">
-  <title>FCD Settings Modules | WordPress Plugin by FCD</title>
-  <meta name="description" content="A lightweight, extensible core framework designed to consolidate various custom WordPress tweaks into a single, beautifully clean admin interface.">
+  <title>WordPress Plugins by fcd.org.uk</title>
+  <meta name="description" content="A collection of WordPress plugins built to enhance a vanilla experience">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Unbreakable 2.0: copied from the Webflow export. Replace these files in css/ when the CSS changes in Webflow -->
@@ -12,6 +12,13 @@
   <link href="css/fcd-styleguide.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|mona-sans:400,500,600,700|antic-didone:400|jetbrains-mono:400,500" rel="stylesheet">
   <script>!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
+
+  <!-- Hide hero items before first paint so the GSAP intro doesn't flash (skipped for reduced motion) -->
+  <script>
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('gsap-intro');
+    }
+  </script>
 
   <!-- FCD Theme Switcher - Config -->
   <script>
@@ -33,12 +40,10 @@
       --vw-to: calc(479 / 100);
       --coefficient: calc((var(--font-to) - var(--font-from)) / (var(--vw-to) - var(--vw-from)));
       --base: calc((var(--font-from) - var(--vw-from) * var(--coefficient)) / 16);
-      --accordion--transition: 300ms;
       --font-family--secondary-font: 'Mona Sans', sans-serif !important;
       --font-family--ui-font: 'Inter', sans-serif !important;
       --font-family--code-font: 'JetBrains Mono', monospace !important;
       --switch-btn-active-bg: var(--_colour-theme---general--white);
-      interpolate-size: allow-keywords;
     }
     html { font-size: calc(var(--base) * 1rem + var(--coefficient) * 1vw); scroll-behavior: smooth; }
     /* 480-1440px: 1rem scales 11px to 14px (main viewport) */
@@ -84,17 +89,6 @@
       color: var(--_colour-theme---general--black);
     }
 
-    /* Accordion (CSS) */
-    details::details-content {
-      block-size: 0;
-      transition: block-size var(--accordion--transition);
-      content-visibility: var(--accordion--transition);
-      transition-behavior: allow-discrete;
-    }
-    details[open]::details-content { block-size: auto; }
-    summary::-webkit-details-marker { display: none; }
-    [data-accordion="icon"] { display: inline-block; transition: transform 0.3s ease; }
-    details[open] [data-accordion="icon"] { transform: rotate(180deg); }
 
     /* Button: Smart Link Control */
     .icon.u-external-link { display: none; }
@@ -133,318 +127,71 @@
     .footer_fcd-credit:hover > .footer_credit-icon { animation: credit-heart 0.8s; }
 
     /* Landing page additions */
-    [id] { scroll-margin-top: 9rem; }
-    #hero .hero_media-cover { opacity: 0.2; }
+    .gsap-intro .hero_section h1, .gsap-intro .hero_section .pl, .gsap-intro .hero_section .card { visibility: hidden; }
     .brand_wordmark { color: inherit; font-size: var(--_typography---h5--h5); font-weight: 600; text-decoration: none; white-space: nowrap; }
-    .feature_icon { color: var(--_colour-theme---primary--500); margin-bottom: 1.5rem; }
-    .feature_history { margin-top: 2rem; }
-    .card .feature_history { margin-top: auto; }
   </style>
 </head>
 <body class="theme_base">
   <script src="https://cdn.jsdelivr.net/gh/First-Class-Design/public-scripts@1.1.4/scripts/fcd-theme-switcher/logic-part1.js"></script>
 
-  <header class="u-position-sticky">
-    <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar w-nav">
-      <a id="skip-link" href="#main" class="nav_skip-link">Skip to main content</a>
-      <div class="navbar-container w-container">
-        <div class="navbar_wrapper">
-          <div class="navbar_contents">
-            <a href="#" class="nav_brand-link brand_wordmark w-nav-brand">FCD Settings Modules</a>
-            <div class="btn-hold u-mobile-nav-btns">
-              <a href="https://plugins.fcd.org.uk/settings-modules/fcd-settings-modules-1.2.0.zip" download class="master-button cc-btn-small w-inline-block">
-                <div>Download v1.2.0</div>
-                <div class="icon w-embed"><svg width="1.3em" height="1.3em" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.5 4.375V16.625" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path><path d="M4.375 10.5L10.5 16.625L16.625 10.5" stroke="currentColor" stroke-width="2"></path></svg></div>
-              </a>
-            </div>
-            <nav role="navigation" class="nav_menu-wrap w-nav-menu">
-              <div class="nav_mobile_menu_scroll">
-                <nav aria-label="Main Menu" class="nav_links_component">
-                  <ul role="list" class="nav_ul">
-                    <li class="menu_li"><a href="https://fcd.org.uk" class="nav_link w-nav-link">Return to FCD</a></li>
-                  </ul>
-                  <div class="btn-hold u-nav-btns">
-                    <div role="group" aria-label="Theme Preferences" class="theme-switcher">
-                      <button data-theme-switch="light" aria-label="Light Mode" aria-pressed="false" class="theme-btn"><div class="u-pointer-events-none w-embed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg></div></button>
-                      <button data-theme-switch="system" aria-label="System Mode" aria-pressed="false" class="theme-btn"><div class="u-pointer-events-none w-embed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg></div></button>
-                      <button data-theme-switch="dark" aria-label="Dark Mode" aria-pressed="false" class="theme-btn"><div class="u-pointer-events-none w-embed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg></div></button>
-                    </div>
-                    <a href="https://plugins.fcd.org.uk/settings-modules/fcd-settings-modules-1.2.0.zip" download class="master-button cc-btn-small w-inline-block">
-                      <div>Download v1.2.0</div>
-                      <div class="icon w-embed"><svg width="1.3em" height="1.3em" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.5 4.375V16.625" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path><path d="M4.375 10.5L10.5 16.625L16.625 10.5" stroke="currentColor" stroke-width="2"></path></svg></div>
-                    </a>
-                  </div>
-                </nav>
-              </div>
-            </nav>
-            <div data-state="open" class="nav_button_wrap w-nav-button">
-              <div class="nav_button_layout">
-                <div class="nav_button_line is-1"></div>
-                <div class="nav_button_line is-2"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="nav_menu_backdrop"></div>
-      </div>
-    </div>
-  </header>
-
   <main id="main">
-    <div class="u-pb-normal u-pt-normal u-pr-medium u-pl-medium">
-      <div id="hero" data-wf--hero--variant="central" class="hero u-radius-normal u-pb-ultra u-pt-ultra">
-        <div class="container_global u-relative">
-          <div class="container w-variant-5305ecda-65a4-fdf0-9944-b6f6736e320a width_46rem">
-            <div class="layout_flex w-variant-5305ecda-65a4-fdf0-9944-b6f6736e320a u-mb-small">
-              <div data-wf--badge--variant="primary" class="badge w-variant-44d653ac-5498-e7ac-c254-0e08ce2aa867">Version 1.2.0</div>
-            </div>
-            <h1 class="h1 xl">FCD Settings Modules</h1>
-            <div class="pl">A lightweight, extensible core framework designed to consolidate various custom WordPress tweaks into a single, beautifully clean admin interface.</div>
-            <div class="btn-hold w-variant-5305ecda-65a4-fdf0-9944-b6f6736e320a u-mt-medium">
-              <div data-wf--button--variant="base" class="master-button">
-                <a aria-label="Download v1.2.0" href="https://plugins.fcd.org.uk/settings-modules/fcd-settings-modules-1.2.0.zip" download class="clickable-wrap w-inline-block"></a>
-                <div>Download v1.2.0</div>
-                <div class="icon w-embed"><svg width="1.3em" height="1.3em" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.5 4.375V16.625" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path><path d="M4.375 10.5L10.5 16.625L16.625 10.5" stroke="currentColor" stroke-width="2"></path></svg></div>
-              </div>
-              <div data-wf--button--variant="white" class="master-button w-variant-53eec675-a0f1-cf8a-9138-09a644b9cdf6">
-                <a aria-label="View on GitHub" href="https://github.com/First-Class-Design/settings-module" target="_blank" rel="noopener" class="clickable-wrap w-inline-block"></a>
-                <div>View on GitHub</div>
-                <div class="icon u-internal-link w-embed"><svg width="1.3em" height="1.3em" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.375 10.5H16.625" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path><path d="M10.5 4.375L16.625 10.5L10.5 16.625" stroke="currentColor" stroke-width="2"></path></svg></div>
-                <div class="icon u-external-link w-embed"><svg width="1.3em" height="1.3em" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.125 14.875L14.875 6.125" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path><path d="M6.125 6.125H14.875V14.875" stroke="currentColor" stroke-width="2"></path></svg></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="hero_media-cover">
-          <div data-wf--image--variant="fill" class="image_holder w-variant-d449535a-8f38-041e-206c-96658fd1ba8a">
-            <img src="images/002-fcd-settings-modules_custom-blocks.webp" alt="" class="image-fill">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="modules">
-      <section class="section_global">
-        <div class="container_global">
-          <div data-wf--content-image--variant="media-right" class="container_flex u-align-centre">
-            <div class="container_col u-align-centre u-pt-medium u-pb-medium">
-              <div class="feature_icon w-embed"><svg width="3.5rem" height="3.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></div>
-              <h2 class="h2">Dismissible Site Notice</h2>
-              <div class="page_rt w-richtext">
-                <p>A globally deployable site-wide notice with 7 flexible positioning options, built-in SVG icons, and smart local-storage cookies that automatically reset across users when you update the content.</p>
-              </div>
-              <div class="accordion_wrapper feature_history">
-                  <details class="accordion-item">
-                    <summary class="accordion_css-trigger">
-                      <h3 class="accordion_h3">Version history &amp; changes</h3>
-                      <div data-accordion="icon" class="accordion_icon w-embed"><svg width="1.3em" height="1.2em" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 2L6.5 6L2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"></path></svg></div>
-                    </summary>
-                    <div class="accordion-item-content">
-                      <div class="page_rt w-richtext">
-                        <ul>
-                          <li><strong>v1.1.17:</strong> Added flexible positioning (7 distinct layout options), pre-built and custom color themes, built-in SVG icons, smart dismissal memory, auto-reset on updates, and appearance delay configuration.</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </details>
-                </div>
-            </div>
-            <div class="container_col media-hold-col">
-              <div data-wf--image--variant="wide-16-9" class="image_holder w-variant-f4301324-63b5-4941-ef73-0047e0b9d094 u-radius-normal"><img loading="lazy" src="images/001-fcd-settings-modules_site-notice.webp" alt="Abstract Site Notice Rendering" class="image-fill"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section_global u-no-pad-top">
-        <div class="container_global">
-          <div data-wf--content-image--variant="media-left" class="container_flex u-align-centre">
-            <div class="container_col u-align-centre u-pt-medium u-pb-medium w-variant-7eaf81c5-7464-1b42-facf-f81dba0a5241">
-              <div class="feature_icon w-embed"><svg width="3.5rem" height="3.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg></div>
-              <h2 class="h2">Custom Block Ecosystem</h2>
-              <div class="page_rt w-richtext">
-                <p>Drop in standalone block files to instantly generate toggles in the admin dashboard. Features the flagship ACF-powered Portfolio Gallery block out of the box, complete with touch/drag lightboxes and native theme overrides.</p>
-              </div>
-              <div class="accordion_wrapper feature_history">
-                  <details class="accordion-item">
-                    <summary class="accordion_css-trigger">
-                      <h3 class="accordion_h3">Version history &amp; changes</h3>
-                      <div data-accordion="icon" class="accordion_icon w-embed"><svg width="1.3em" height="1.2em" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 2L6.5 6L2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"></path></svg></div>
-                    </summary>
-                    <div class="accordion-item-content">
-                      <div class="page_rt w-richtext">
-                        <ul>
-                          <li><strong>v1.2.0:</strong> Added a custom 'Blocks' module to support a series of custom blocks.</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </details>
-                </div>
-            </div>
-            <div class="container_col media-hold-col">
-              <div data-wf--image--variant="wide-16-9" class="image_holder w-variant-f4301324-63b5-4941-ef73-0047e0b9d094 u-radius-normal"><img loading="lazy" src="images/002-fcd-settings-modules_custom-blocks.webp" alt="Abstract Custom Blocks Rendering" class="image-fill"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section_global u-no-pad-top">
-        <div class="container_global">
-          <div data-wf--content-image--variant="media-right" class="container_flex u-align-centre">
-            <div class="container_col u-align-centre u-pt-medium u-pb-medium">
-              <div class="feature_icon w-embed"><svg width="3.5rem" height="3.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="13.5" cy="6.5" r=".5"></circle><circle cx="17.5" cy="10.5" r=".5"></circle><circle cx="8.5" cy="7.5" r=".5"></circle><circle cx="6.5" cy="12.5" r=".5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg></div>
-              <h2 class="h2">Admin Colours Overrides</h2>
-              <div class="page_rt w-richtext">
-                <p>Seamlessly re-brand the native WordPress "Modern" and "Fresh" dashboard schemes with your agency's primary colors, ensuring a uniform backend aesthetic for all client handoffs.</p>
-              </div>
-              <div class="accordion_wrapper feature_history">
-                  <details class="accordion-item">
-                    <summary class="accordion_css-trigger">
-                      <h3 class="accordion_h3">Version history &amp; changes</h3>
-                      <div data-accordion="icon" class="accordion_icon w-embed"><svg width="1.3em" height="1.2em" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 2L6.5 6L2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"></path></svg></div>
-                    </summary>
-                    <div class="accordion-item-content">
-                      <div class="page_rt w-richtext">
-                        <ul>
-                          <li><strong>v1.1.13:</strong> Added enable/disable toggle for the admin colour module.</li>
-                          <li><strong>v1.0.1:</strong> Initial launch of the Admin Colours module.</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </details>
-                </div>
-            </div>
-            <div class="container_col media-hold-col">
-              <div data-wf--image--variant="wide-16-9" class="image_holder w-variant-f4301324-63b5-4941-ef73-0047e0b9d094 u-radius-normal"><img loading="lazy" src="images/003-fcd-settings-modules_admin-colors.webp" alt="Abstract Admin Colours Rendering" class="image-fill"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section_global u-no-pad-top">
-        <div class="container_global">
-          <div data-wf--content-image--variant="media-left" class="container_flex u-align-centre">
-            <div class="container_col u-align-centre u-pt-medium u-pb-medium w-variant-7eaf81c5-7464-1b42-facf-f81dba0a5241">
-              <div class="feature_icon w-embed"><svg width="3.5rem" height="3.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></div>
-              <h2 class="h2">Editor Styles Mapping</h2>
-              <div class="page_rt w-richtext">
-                <p>Inject custom CSS directly into the Gutenberg Block Editor to mirror your frontend typography, layouts, and variables without fighting block editor specificity.</p>
-              </div>
-              <div class="accordion_wrapper feature_history">
-                  <details class="accordion-item">
-                    <summary class="accordion_css-trigger">
-                      <h3 class="accordion_h3">Version history &amp; changes</h3>
-                      <div data-accordion="icon" class="accordion_icon w-embed"><svg width="1.3em" height="1.2em" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 2L6.5 6L2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"></path></svg></div>
-                    </summary>
-                    <div class="accordion-item-content">
-                      <div class="page_rt w-richtext">
-                        <ul>
-                          <li><strong>v1.1.11:</strong> Revised helper text to include <code>.editor-styles-wrapper</code> class and native embed instructions.</li>
-                          <li><strong>v1.0.1:</strong> Added Editor Styles module to map frontend CSS to Gutenberg.</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </details>
-                </div>
-            </div>
-            <div class="container_col media-hold-col">
-              <div data-wf--image--variant="wide-16-9" class="image_holder w-variant-f4301324-63b5-4941-ef73-0047e0b9d094 u-radius-normal"><img loading="lazy" src="images/004-fcd-settings-modules_editor-styles.webp" alt="Abstract Editor Styles Rendering" class="image-fill"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <section id="more-modules" class="section_global u-no-pad-top">
+    <section class="hero_section">
       <div class="container_global">
-        <div class="container w-variant-5305ecda-65a4-fdf0-9944-b6f6736e320a width_46rem u-mb-medium">
-          <div class="layout_flex w-variant-5305ecda-65a4-fdf0-9944-b6f6736e320a u-mb-small">
-            <div data-wf--badge--variant="base" class="badge">More Modules</div>
-          </div>
-          <h2 class="h2">Smaller Modules, Large Impact</h2>
+        <div class="container width_46rem">
+          <h1 class="h1 _3xl">WordPress Plugins</h1>
+          <p class="pl">A collection of WordPress plugins built to enhance a vanilla experience</p>
         </div>
-        <div class="grid_3">
-            <div class="card">
-              <div class="card_media u-mb-medium">
-                <div data-wf--image--variant="wide-3-2" class="image_holder w-variant-6572dbbc-bae1-0b3d-72fc-80b01a15386b u-radius-sm"><img loading="lazy" src="images/005-fcd-settings-modules_excerpt-settings.webp" alt="Abstract Excerpt Settings" class="image-fill"></div>
-              </div>
-              <div class="card_body">
-                <div class="card_content u-mb-small">
-                  <h3 class="h3">Excerpt Settings</h3>
-                  <p class="u-mb-0">Control the global excerpt length and set custom post-type-specific suffixes like "... Read More" to maintain visual symmetry in listings.</p>
+        <div class="grid_3 u-mt-normal">
+          <div class="card">
+            <div class="card_body">
+              <div class="card_content u-mb-small">
+                <div class="layout_flex u-mb-medium u-mb-normal">
+                  <div class="css-selector cc-code">v1.2.0</div>
                 </div>
-                <div class="accordion_wrapper feature_history">
-            <details class="accordion-item">
-              <summary class="accordion_css-trigger">
-                <h3 class="accordion_h3">Version history &amp; changes</h3>
-                <div data-accordion="icon" class="accordion_icon w-embed"><svg width="1.3em" height="1.2em" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 2L6.5 6L2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"></path></svg></div>
-              </summary>
-              <div class="accordion-item-content">
-                <div class="page_rt w-richtext">
-                  <ul>
-                    <li><strong>1.0.1:</strong> Added full support for dynamic, post-type-specific suffixes.</li>
-                    <li><strong>1.0.0:</strong> Initial launch with excerpt length and truncation logic.</li>
-                  </ul>
-                </div>
+                <h2 class="h2">Settings Modules</h2>
+                <p class="u-mb-0">Site notices, custom blocks, admin colours and editor styles in one clean admin interface.</p>
               </div>
-            </details>
-          </div>
+              <div class="btn-hold u-mt-auto">
+                <div data-wf--button--variant="black" class="master-button w-variant-78331190-d74e-ed80-682a-bf68253f76c6 cc-btn-medium">
+                  <a aria-label="Explore Settings Modules" href="https://plugins.fcd.org.uk/settings-modules/" class="clickable-wrap w-inline-block"></a>
+                  <div>Explore</div>
+                  <div class="icon u-internal-link w-embed"><svg width="1.3em" height="1.3em" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.375 10.5H16.625" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path><path d="M10.5 4.375L16.625 10.5L10.5 16.625" stroke="currentColor" stroke-width="2"></path></svg></div>
+                </div>
               </div>
             </div>
-            <div class="card">
-              <div class="card_media u-mb-medium">
-                <div data-wf--image--variant="wide-3-2" class="image_holder w-variant-6572dbbc-bae1-0b3d-72fc-80b01a15386b u-radius-sm"><img loading="lazy" src="images/006-fcd-settings-modules_archive-limits.webp" alt="Abstract Archive Limits" class="image-fill"></div>
-              </div>
-              <div class="card_body">
-                <div class="card_content u-mb-small">
-                  <h3 class="h3">Archive Limits</h3>
-                  <p class="u-mb-0">Precisely override WordPress page limit settings for separate custom post-type archives without breaking globally paginated lists.</p>
-                </div>
-                <div class="accordion_wrapper feature_history">
-            <details class="accordion-item">
-              <summary class="accordion_css-trigger">
-                <h3 class="accordion_h3">Version history &amp; changes</h3>
-                <div data-accordion="icon" class="accordion_icon w-embed"><svg width="1.3em" height="1.2em" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 2L6.5 6L2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"></path></svg></div>
-              </summary>
-              <div class="accordion-item-content">
-                <div class="page_rt w-richtext">
-                  <ul>
-                    <li><strong>1.0.0:</strong> Handcrafted dynamic query alter to override defaults per archive.</li>
-                  </ul>
-                </div>
-              </div>
-            </details>
           </div>
+          <div class="card">
+            <div class="card_body">
+              <div class="card_content u-mb-small">
+                <div class="layout_flex u-mb-medium u-mb-normal">
+                  <div class="css-selector cc-outline">Available</div>
+                </div>
+                <h2 class="h2">Google Reviews</h2>
+                <p class="u-mb-0">Pulls reviews via the Places API, supporting multi-location and compatible with Settings Modules.</p>
+              </div>
+              <div class="btn-hold u-mt-auto">
+                <div class="master-button cc-outlined-2 cc-btn-medium u-pointer-events-none">
+                  <div>Release Coming Soon</div>
+                </div>
               </div>
             </div>
-            <div class="card">
-              <div class="card_media u-mb-medium">
-                <div data-wf--image--variant="wide-3-2" class="image_holder w-variant-6572dbbc-bae1-0b3d-72fc-80b01a15386b u-radius-sm"><img loading="lazy" src="images/007-fcd-settings-modules_misc-modules.webp" alt="Abstract Misc Settings (Micro-Modules)" class="image-fill"></div>
-              </div>
-              <div class="card_body">
-                <div class="card_content u-mb-small">
-                  <h3 class="h3">Misc Settings</h3>
-                  <p class="u-mb-0">Inject site scripts and control toggleable frontend features, like Snow effects and GA4, easily through lightweight micro-modules.</p>
-                </div>
-                <div class="accordion_wrapper feature_history">
-            <details class="accordion-item">
-              <summary class="accordion_css-trigger">
-                <h3 class="accordion_h3">Version history &amp; changes</h3>
-                <div data-accordion="icon" class="accordion_icon w-embed"><svg width="1.3em" height="1.2em" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 2L6.5 6L2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"></path></svg></div>
-              </summary>
-              <div class="accordion-item-content">
-                <div class="page_rt w-richtext">
-                  <ul>
-                    <li><strong>1.2.0:</strong> Overhauled Google Maps legacy script injection in the block editor.</li>
-                    <li><strong>1.1.13:</strong> Integrated toggle settings for standard colors and themes.</li>
-                    <li><strong>1.0.2:</strong> Dynamically loads custom, standalone micro-modules from directories.</li>
-                  </ul>
-                </div>
-              </div>
-            </details>
           </div>
+          <div class="card u-opacity-50">
+            <div class="card_body">
+              <div class="card_content u-mb-small">
+                <div class="layout_flex u-mb-medium u-mb-normal">
+                  <div class="css-selector cc-outline">Upcoming</div>
+                </div>
+                <h2 class="h2">ACF Pro Gallery</h2>
+                <p class="u-mb-0">A standalone gallery plugin built on ACF Pro.</p>
+              </div>
+              <div class="btn-hold u-mt-auto">
+                <div class="master-button cc-outlined-2 cc-btn-medium u-pointer-events-none">
+                  <div>Coming Soon</div>
+                </div>
               </div>
             </div>
+          </div>
         </div>
       </div>
     </section>
@@ -452,8 +199,10 @@
 
   <footer class="section_global">
     <div class="container_global">
-      <div class="footer_heading">
-        <a href="#" class="footer_brand-link brand_wordmark w-nav-brand">FCD Settings Modules</a>
+      <div role="group" aria-label="Theme Preferences" class="theme-switcher">
+        <button data-theme-switch="light" aria-label="Light Mode" aria-pressed="false" class="theme-btn"><div class="u-pointer-events-none w-embed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg></div></button>
+        <button data-theme-switch="system" aria-label="System Mode" aria-pressed="false" class="theme-btn"><div class="u-pointer-events-none w-embed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg></div></button>
+        <button data-theme-switch="dark" aria-label="Dark Mode" aria-pressed="false" class="theme-btn"><div class="u-pointer-events-none w-embed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg></div></button>
       </div>
       <div class="section_divider u-mt-normal u-mb-normal"></div>
       <div>
@@ -476,5 +225,26 @@
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=636cc277bd6bad1e91095258" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
   <script src="js/fcd-styleguide.js" type="text/javascript"></script>
   <script src="https://cdn.jsdelivr.net/gh/First-Class-Design/public-scripts@1.1.4/scripts/fcd-theme-switcher/logic-part2.js"></script>
+
+  <!-- Hero intro: staggered move up and fade -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      const root = document.documentElement;
+      if (!root.classList.contains('gsap-intro')) return;
+      // Always reveal first, so the content still shows if GSAP failed to load
+      root.classList.remove('gsap-intro');
+      if (!window.gsap) return;
+      // gsap.from animates to each element's CSS opacity, so the faded card ends at 0.5
+      gsap.from('.hero_section h1, .hero_section .pl, .hero_section .card', {
+        y: 40,
+        opacity: 0,
+        duration: 0.9,
+        ease: 'power3.out',
+        stagger: 0.12,
+        clearProps: 'transform,opacity'
+      });
+    })();
+  </script>
 </body>
 </html>
