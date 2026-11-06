@@ -19,13 +19,13 @@ define( 'SM_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 class Settings_Modules_Core {
 
 	public function __construct() {
-		// 1. Initialize Plugin Update Checker (GitHub Updates)
+		// Initialize Plugin Update Checker
 		$this->init_update_checker();
 
-		// 2. Load all modules from the 'modules' folder
+		// Load all modules from the 'modules' folder
 		add_action( 'plugins_loaded', array( $this, 'load_modules' ) );
 
-		// 3. Create the Admin Menu
+		// Create the Admin Menu
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
 	}
 
@@ -39,20 +39,13 @@ class Settings_Modules_Core {
 		if ( file_exists( $puc_path ) ) {
 			require_once $puc_path;
 
-			// --- SELF-HOSTED JSON CONFIGURATION ---
-			// ⚠️ The URL to the info.json file hosted securely on your server
 			$json_metadata_url = 'https://plugins.fcd.org.uk/settings-modules/info.json'; 
-			// --------------------------------------
 			
 			$myUpdateChecker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
 				$json_metadata_url,
 				SM_PLUGIN_PATH . 'fcd-settings-modules.php', 
 				'fcd-settings-modules'
 			);
-
-			// (Optional) If you want to force WP to check the JSON file more frequently during testing, 
-			// you can uncomment the line below (checks every 1 hour instead of 12).
-			// $myUpdateChecker->setUpdateCheckPeriod(1);
 		}
 	}
 
@@ -74,9 +67,9 @@ class Settings_Modules_Core {
 	public function add_admin_menu() {
 		add_menu_page(
 			'Site Settings',
-			'Custom Settings', // Renamed from 'Settings Modules'
+			'Custom Settings',
 			'manage_options',
-			'custom-settings', // Slug updated to match
+			'custom-settings',
 			array( $this, 'create_admin_page' ),
 			'dashicons-admin-generic'
 		);
