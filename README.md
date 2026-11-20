@@ -51,6 +51,12 @@ Drop a standalone PHP file into the nested /modules/misc-modules/ folder. The Mi
 
 ## **Changelog**
 
+### **1.2.1**
+
+* Site Notice: the icon now displays above the text rather than beside it.
+* Site Notice: added an optional title field.
+* Site Notice: added a Custom CSS box for site-specific styling (e.g. border-radius).
+
 ### **1.2.0**
 
 * Added a custom 'Blocks' module to support a series of blocks powered by ACF Pro (or without).

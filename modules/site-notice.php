@@ -2,7 +2,7 @@
 /**
  * Module Name: Site Notice
  * Description: A dismissible site-wide notice with configurable positioning, colors, and cookies.
- * Version: 1.0.1
+ * Version: 1.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Module_Site_Notice {
 
-	private $module_version = '1.0.1';
+	private $module_version = '1.1.0';
 	private $option_group   = 'sm_notice_group';
 	private $page_slug      = 'custom-settings-notice';
 	private $tab_id         = 'site_notice';
@@ -32,6 +32,7 @@ class Module_Site_Notice {
 		// Register all settings
 		register_setting( $this->option_group, 'sm_notice_enable', 'rest_sanitize_boolean' );
 		register_setting( $this->option_group, 'sm_notice_variant', 'sanitize_text_field' );
+		register_setting( $this->option_group, 'sm_notice_title', 'sanitize_text_field' );
 		register_setting( $this->option_group, 'sm_notice_content', 'wp_kses_post' );
 		register_setting( $this->option_group, 'sm_notice_color', 'sanitize_text_field' );
 		register_setting( $this->option_group, 'sm_notice_custom_bg', 'sanitize_hex_color' );
@@ -41,6 +42,7 @@ class Module_Site_Notice {
 		register_setting( $this->option_group, 'sm_notice_icon', 'sanitize_text_field' );
 		register_setting( $this->option_group, 'sm_notice_delay', 'absint' );
 		register_setting( $this->option_group, 'sm_notice_remember', 'absint' );
+		register_setting( $this->option_group, 'sm_notice_custom_css', array( 'sanitize_callback' => array( $this, 'sanitize_css' ) ) );
 
 		// Sections
 		add_settings_section( 'sm_notice_main_section', 'Notice Configuration', array( $this, 'section_info' ), $this->page_slug );
@@ -50,6 +52,7 @@ class Module_Site_Notice {
 		// Fields - Main
 		add_settings_field( 'sm_notice_enable', 'Enable Notice', array( $this, 'cb_checkbox' ), $this->page_slug, 'sm_notice_main_section', array( 'id' => 'sm_notice_enable', 'desc' => 'Turn the site-wide notice on or off.' ) );
 		add_settings_field( 'sm_notice_variant', 'Variant', array( $this, 'cb_select' ), $this->page_slug, 'sm_notice_main_section', array( 'id' => 'sm_notice_variant', 'options' => array( 'simple' => 'Simple Notice', 'enriched' => 'Enriched Popup (Future)' ) ) );
+		add_settings_field( 'sm_notice_title', 'Notice Title', array( $this, 'cb_text' ), $this->page_slug, 'sm_notice_main_section', array( 'id' => 'sm_notice_title', 'desc' => 'Optional heading shown above the notice text.' ) );
 		add_settings_field( 'sm_notice_content', 'Notice Text', array( $this, 'cb_textarea' ), $this->page_slug, 'sm_notice_main_section', array( 'id' => 'sm_notice_content', 'desc' => 'HTML allowed (e.g. &lt;strong&gt;, &lt;a href="..."&gt;).' ) );
 
 		// Fields - Style
@@ -59,7 +62,8 @@ class Module_Site_Notice {
 		add_settings_field( 'sm_notice_icon', 'Icon', array( $this, 'cb_select' ), $this->page_slug, 'sm_notice_style_section', array( 'id' => 'sm_notice_icon', 'options' => array( 'none' => 'None', 'info' => 'Info Circle', 'warning' => 'Warning Triangle', 'bell' => 'Bell Notification', 'star' => 'Star' ) ) );
 		add_settings_field( 'sm_notice_position', 'Position', array( $this, 'cb_select' ), $this->page_slug, 'sm_notice_style_section', array( 'id' => 'sm_notice_position', 'options' => array( 'bottom-left' => 'Bottom Left (Floating)', 'bottom-right' => 'Bottom Right (Floating)', 'top-left' => 'Top Left (Floating)', 'top-right' => 'Top Right (Floating)', 'center' => 'Center (Floating)', 'top' => 'Top (Full Width)', 'bottom' => 'Bottom (Full Width)' ) ) );
 		add_settings_field( 'sm_notice_align', 'Text Alignment', array( $this, 'cb_select' ), $this->page_slug, 'sm_notice_style_section', array( 'id' => 'sm_notice_align', 'options' => array( 'left' => 'Left', 'center' => 'Center', 'right' => 'Right' ) ) );
-		
+		add_settings_field( 'sm_notice_custom_css', 'Custom CSS', array( $this, 'cb_css' ), $this->page_slug, 'sm_notice_style_section', array( 'id' => 'sm_notice_custom_css' ) );
+
 		// Fields - Behavior
 		add_settings_field( 'sm_notice_delay', 'Appearance Delay', array( $this, 'cb_number' ), $this->page_slug, 'sm_notice_behavior_section', array( 'id' => 'sm_notice_delay', 'default' => 1, 'suffix' => 'seconds' ) );
 		add_settings_field( 'sm_notice_remember', 'Remember Dismissal', array( $this, 'cb_number' ), $this->page_slug, 'sm_notice_behavior_section', array( 'id' => 'sm_notice_remember', 'default' => 48, 'suffix' => 'hours', 'desc' => 'How long to hide the notice after the user clicks close. Note: Updating the Notice Text will automatically reset this for all users.' ) );
@@ -98,6 +102,23 @@ class Module_Site_Notice {
 		echo '</select>';
 	}
 
+	public function cb_text( $args ) {
+		$value = get_option( $args['id'], '' );
+		echo '<input type="text" name="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" class="regular-text">';
+		if ( isset( $args['desc'] ) ) echo '<p class="description">' . esc_html( $args['desc'] ) . '</p>';
+	}
+
+	public function cb_css( $args ) {
+		$value = get_option( $args['id'], '' );
+		echo '<textarea name="' . esc_attr( $args['id'] ) . '" rows="8" class="code" spellcheck="false" style="width: 100%; max-width: 600px; font-family: monospace;" placeholder="#fcd-site-notice { border-radius: 0; }">' . esc_textarea( $value ) . '</textarea>';
+		echo '<p class="description">Loaded after the default styles. Selectors: <code>#fcd-site-notice</code>, <code>.fcd-notice-icon</code>, <code>.fcd-notice-title</code>, <code>.fcd-notice-content</code>, <code>.fcd-notice-close</code>.</p>';
+	}
+
+	public function sanitize_css( $css ) {
+		// Plain CSS only: strip tags so the value can't break out of the <style> block.
+		return trim( wp_strip_all_tags( (string) $css ) );
+	}
+
 	public function cb_textarea( $args ) {
 		$value = get_option( $args['id'], '' );
 		echo '<textarea name="' . esc_attr( $args['id'] ) . '" rows="4" style="width: 100%; max-width: 600px;">' . esc_textarea( $value ) . '</textarea>';
@@ -120,8 +141,9 @@ class Module_Site_Notice {
 	public function output_frontend_notice() {
 		if ( ! get_option( 'sm_notice_enable', false ) || is_admin() ) return;
 		
+		$title   = get_option( 'sm_notice_title', '' );
 		$content = get_option( 'sm_notice_content', '' );
-		if ( empty( trim( $content ) ) ) return;
+		if ( '' === trim( $content ) && '' === trim( $title ) ) return;
 
 		// Options
 		$color_theme = get_option( 'sm_notice_color', 'black' );
@@ -131,8 +153,14 @@ class Module_Site_Notice {
 		$delay_sec   = get_option( 'sm_notice_delay', 1 );
 		$remember_hr = get_option( 'sm_notice_remember', 48 );
 
-		// Generate Hash for LocalStorage (Changing text forces notice to reappear)
-		$notice_hash = md5( $content );
+		$custom_css  = get_option( 'sm_notice_custom_css', '' );
+
+		// Generate Hash for LocalStorage (Changing title or text forces notice to reappear)
+		$notice_hash = md5( $title . '|' . $content );
+
+		// Horizontal alignment of the stacked icon / title / text
+		$flex_align = array( 'left' => 'flex-start', 'center' => 'center', 'right' => 'flex-end' );
+		$body_align = isset( $flex_align[ $align ] ) ? $flex_align[ $align ] : 'flex-start';
 
 		// Map Colors
 		$bg_col = '#000000'; $txt_col = '#ffffff';
@@ -167,7 +195,7 @@ class Module_Site_Notice {
 				color: <?php echo esc_attr( $txt_col ); ?>;
 				box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 				display: flex;
-				align-items: center;
+				align-items: flex-start;
 				gap: 12px;
 				opacity: 0;
 				visibility: hidden;
@@ -197,11 +225,13 @@ class Module_Site_Notice {
 
 			/* Typography & Elements */
 			#fcd-site-notice a { color: inherit; text-decoration: underline; font-weight: 600; }
-			#fcd-site-notice .fcd-notice-icon { flex-shrink: 0; width: 24px; height: 24px; display: flex; align-items: center; }
+			/* Icon, title and text stack vertically; alignment applies here */
+			#fcd-site-notice .fcd-notice-body { flex-grow: 1; min-width: 0; display: flex; flex-direction: column; align-items: <?php echo esc_attr( $body_align ); ?>; gap: 8px; text-align: <?php echo esc_attr( $align ); ?>; }
+			#fcd-site-notice .fcd-notice-icon { flex-shrink: 0; width: 28px; height: 28px; display: flex; align-items: center; }
 			#fcd-site-notice .fcd-notice-icon svg { width: 100%; height: 100%; }
-			
-			/* Alignment applies here */
-			#fcd-site-notice .fcd-notice-content { flex-grow: 1; text-align: <?php echo esc_attr( $align ); ?>; }
+			#fcd-site-notice .fcd-notice-title { margin: 0; font-size: 1.15em; font-weight: 700; line-height: 1.3; color: inherit; }
+			#fcd-site-notice .fcd-notice-content { width: 100%; }
+			#fcd-site-notice .fcd-notice-content p:first-child { margin-top: 0; }
 			#fcd-site-notice .fcd-notice-content p:last-child { margin-bottom: 0; }
 			
 			#fcd-site-notice .fcd-notice-close {
@@ -214,14 +244,27 @@ class Module_Site_Notice {
 			#fcd-site-notice .fcd-notice-close:hover { opacity: 1; }
 			#fcd-site-notice .fcd-notice-close svg { width: 18px; height: 18px; }
 		</style>
+		<?php if ( '' !== trim( $custom_css ) ) : ?>
+		<style id="fcd-site-notice-custom-css">
+			<?php echo str_ireplace( '</style', '', wp_strip_all_tags( $custom_css ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+		</style>
+		<?php endif; ?>
 
 		<div id="fcd-site-notice" class="pos-<?php echo esc_attr( $position ); ?>">
-			<?php if ( ! empty( $svg_markup ) ) : ?>
-				<div class="fcd-notice-icon"><?php echo $svg_markup; ?></div>
-			<?php endif; ?>
-			
-			<div class="fcd-notice-content">
-				<?php echo wp_kses_post( wpautop( $content ) ); ?>
+			<div class="fcd-notice-body">
+				<?php if ( ! empty( $svg_markup ) ) : ?>
+					<div class="fcd-notice-icon"><?php echo $svg_markup; ?></div>
+				<?php endif; ?>
+
+				<?php if ( '' !== trim( $title ) ) : ?>
+					<div class="fcd-notice-title"><?php echo esc_html( $title ); ?></div>
+				<?php endif; ?>
+
+				<?php if ( '' !== trim( $content ) ) : ?>
+					<div class="fcd-notice-content">
+						<?php echo wp_kses_post( wpautop( $content ) ); ?>
+					</div>
+				<?php endif; ?>
 			</div>
 
 			<button id="fcd-notice-close" class="fcd-notice-close" aria-label="Close Notice">
